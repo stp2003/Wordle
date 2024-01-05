@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/grid.dart';
+import '../components/keyboard_row.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,7 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(
             flex: 4,
             child: Container(
-              color: Colors.red,
+              child: const Column(
+                children: [
+                  KeyboardRow(min: 1, max: 10),
+                  KeyboardRow(min: 11, max: 19),
+                  KeyboardRow(min: 20, max: 29),
+                ],
+              ),
             ),
           ),
         ],
