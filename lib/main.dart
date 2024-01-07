@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wordle/controllers/controller.dart';
 import 'package:wordle/screens/home_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => Controller()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
