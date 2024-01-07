@@ -27,13 +27,12 @@ class KeyboardRow extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6.0),
                 child: Container(
-                  color: Colors.orangeAccent,
+                  color: Colors.blueGrey,
                   width: e.key == 'ENTER' || e.key == 'BACK'
                       ? size.width * 0.13
                       : size.width * 0.085,
                   height: size.height * 0.085,
                   child: Material(
-                    color: Colors.white24,
                     child: InkWell(
                       onTap: () {},
                       child: Center(
