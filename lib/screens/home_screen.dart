@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/controllers/controller.dart';
+import 'package:wordle/controllers/theme_provider.dart';
 
 import '../components/grid.dart';
 import '../components/keyboard_row.dart';
@@ -38,6 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Wordle'),
         centerTitle: true,
         elevation: 5.0,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Provider.of<ThemeProvider>(context, listen: false).setTheme();
+            },
+            icon: const Icon(Icons.settings),
+          ),
+        ],
       ),
       body: const Column(
         children: [
