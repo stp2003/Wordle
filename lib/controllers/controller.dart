@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/answer_stages.dart';
+import '../data/key_maps.dart';
 import '../models/tile_model.dart';
 
 class Controller extends ChangeNotifier {
@@ -48,14 +49,16 @@ class Controller extends ChangeNotifier {
     remainingCorrect = correctWord.characters.toList();
 
     if (guessedWord == correctWord) {
-      print('Correct');
+      for (int i = currentRow * 5; i < (currentRow * 5) + 5; i++) {
+        tilesEntered[i].answerStage = AnswerStage.correct;
+        keysMap.update(tilesEntered[i].letter, (value) => AnswerStage.correct);
+      }
     } else {
       for (int i = 0; i < 5; i++) {
         if (guessedWord[i] == correctWord[i]) {
           remainingCorrect.remove(guessedWord[i]);
-          // tilesEntered[i + (currentRow * 5)].answerStage = AnswerStage.correct;
-          // keysMap.update(guessedWord[i], (value) => AnswerStage.correct);
-          print('Letter guessed at ${guessedWord[i]}');
+          tilesEntered[i + (currentRow * 5)].answerStage = AnswerStage.correct;
+          keysMap.update(guessedWord[i], (value) => AnswerStage.correct);
         }
       }
 
@@ -63,11 +66,25 @@ class Controller extends ChangeNotifier {
         for (int j = 0; j < 5; j++) {
           if (remainingCorrect[i] ==
               tilesEntered[j + (currentRow * 5)].letter) {
-            print('contains at ${remainingCorrect[i]}');
+            if (tilesEntered[j + (currentRow * 5)].answerStage !=
+                AnswerStage.correct) {
+              tilesEntered[j + (currentRow * 5)].answerStage =
+                  AnswerStage.contains;
+            }
+            final resultKey = keysMap.entries.where((element) =>
+                element.key == tilesEntered[j + (currentRow * 5)].letter);
+
+            if (resultKey.single.value != AnswerStage.correct) {
+              keysMap.update(
+                resultKey.single.key,
+                (value) => AnswerStage.contains,
+              );
+            }
           }
         }
       }
     }
     currentRow++;
+    notifyListeners();
   }
 }
