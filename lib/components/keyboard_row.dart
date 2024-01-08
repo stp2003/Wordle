@@ -29,19 +29,18 @@ class KeyboardRow extends StatelessWidget {
             (e) {
               index++;
               if (index >= min && index <= max) {
-                Color color = Colors.grey;
+                Color color = Theme.of(context).primaryColorLight;
                 Color keyColor = Colors.white;
                 if (e.value == AnswerStage.correct) {
                   color = correctGreen;
                 } else if (e.value == AnswerStage.contains) {
                   color = containsYellow;
+                } else if (e.value == AnswerStage.incorrect) {
+                  color = Theme.of(context).primaryColorDark;
+                } else {
+                  keyColor = Theme.of(context).textTheme.bodyMedium?.color ??
+                      Colors.black;
                 }
-                // else if (e.value == AnswerStage.incorrect) {
-                //   color = Theme.of(context).primaryColorDark;
-                // } else {
-                //   keyColor = Theme.of(context).textTheme.bodyMedium?.color ??
-                //       Colors.black;
-                // }
                 return Padding(
                   padding: EdgeInsets.all(size.width * 0.006),
                   child: ClipRRect(
@@ -59,7 +58,15 @@ class KeyboardRow extends StatelessWidget {
                                 .setKeyTapped(value: e.key);
                           },
                           child: Center(
-                            child: Text(e.key),
+                            child: Text(
+                              e.key,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                    color: keyColor,
+                                  ),
+                            ),
                           ),
                         ),
                       ),

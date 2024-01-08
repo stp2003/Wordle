@@ -39,22 +39,21 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         elevation: 5.0,
       ),
-      body: Column(
+      body: const Column(
         children: [
-          const Expanded(
+          Divider(thickness: 7, height: 1.0),
+          Expanded(
             flex: 7,
             child: Grid(),
           ),
           Expanded(
             flex: 4,
-            child: Container(
-              child: const Column(
-                children: [
-                  KeyboardRow(min: 1, max: 10),
-                  KeyboardRow(min: 11, max: 19),
-                  KeyboardRow(min: 20, max: 29),
-                ],
-              ),
+            child: Column(
+              children: [
+                KeyboardRow(min: 1, max: 10),
+                KeyboardRow(min: 11, max: 19),
+                KeyboardRow(min: 20, max: 29),
+              ],
             ),
           ),
         ],

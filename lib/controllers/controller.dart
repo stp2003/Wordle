@@ -83,7 +83,20 @@ class Controller extends ChangeNotifier {
           }
         }
       }
+      for (int i = currentRow * 5; i < (currentRow * 5) + 5; i++) {
+        if (tilesEntered[i].answerStage == AnswerStage.notAnswered) {
+          tilesEntered[i].answerStage = AnswerStage.incorrect;
+
+          final results = keysMap.entries
+              .where((element) => element.key == tilesEntered[i].letter);
+          if (results.single.value == AnswerStage.notAnswered) {
+            keysMap.update(
+                tilesEntered[i].letter, (value) => AnswerStage.incorrect);
+          }
+        }
+      }
     }
+
     currentRow++;
     notifyListeners();
   }
