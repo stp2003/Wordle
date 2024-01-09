@@ -6,6 +6,7 @@ import '../models/tile_model.dart';
 
 class Controller extends ChangeNotifier {
   String correctWord = '';
+  bool checkLine = false;
   int currentTile = 0, currentRow = 0;
   List<TileModel> tilesEntered = [];
 
@@ -95,9 +96,9 @@ class Controller extends ChangeNotifier {
           }
         }
       }
+      currentRow++;
     }
-
-    currentRow++;
+    checkLine = true;
     notifyListeners();
   }
 }
