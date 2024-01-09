@@ -6,7 +6,7 @@ import '../models/tile_model.dart';
 
 class Controller extends ChangeNotifier {
   String correctWord = '';
-  bool checkLine = false;
+  bool checkLine = false, isBackOrEnter = false;
   int currentTile = 0, currentRow = 0;
   List<TileModel> tilesEntered = [];
 
@@ -14,12 +14,14 @@ class Controller extends ChangeNotifier {
   setKeyTapped({required String value}) {
     if (value == 'ENTER') {
       if (currentTile == 5 * (currentRow + 1)) {
+        isBackOrEnter = true;
         checkWord();
       }
     } else if (value == 'BACK') {
       if (currentTile > 5 * (currentRow + 1) - 5) {
         currentTile--;
         tilesEntered.removeLast();
+        isBackOrEnter = true;
       }
     } else {
       if (currentTile < 5 * (currentRow + 1)) {
@@ -30,6 +32,7 @@ class Controller extends ChangeNotifier {
           ),
         );
         currentTile++;
+        isBackOrEnter = false;
       }
     }
     notifyListeners();
