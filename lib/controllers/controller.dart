@@ -6,7 +6,7 @@ import '../models/tile_model.dart';
 
 class Controller extends ChangeNotifier {
   String correctWord = '';
-  bool checkLine = false, isBackOrEnter = false;
+  bool checkLine = false, isBackOrEnter = false, gameWon = false;
   int currentTile = 0, currentRow = 0;
   List<TileModel> tilesEntered = [];
 
@@ -56,6 +56,7 @@ class Controller extends ChangeNotifier {
       for (int i = currentRow * 5; i < (currentRow * 5) + 5; i++) {
         tilesEntered[i].answerStage = AnswerStage.correct;
         keysMap.update(tilesEntered[i].letter, (value) => AnswerStage.correct);
+        gameWon = true;
       }
     } else {
       for (int i = 0; i < 5; i++) {
@@ -99,8 +100,8 @@ class Controller extends ChangeNotifier {
           }
         }
       }
-      currentRow++;
     }
+    currentRow++;
     checkLine = true;
     notifyListeners();
   }
