@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordle/controllers/controller.dart';
-import 'package:wordle/controllers/theme_provider.dart';
+import 'package:wordle/screens/settings.dart';
 
 import '../components/grid.dart';
 import '../components/keyboard_row.dart';
@@ -42,7 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              Provider.of<ThemeProvider>(context, listen: false).setTheme();
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const Settings(),
+                ),
+              );
             },
             icon: const Icon(Icons.settings),
           ),
