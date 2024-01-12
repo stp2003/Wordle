@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wordle/controllers/theme_provider.dart';
 import 'package:wordle/themes/theme_preferences.dart';
+
+import '../functions/run_quick_box.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -40,6 +43,17 @@ class Settings extends StatelessWidget {
                   );
                 },
               );
+            },
+          ),
+          ListTile(
+            title: const Text('Reset Statistics'),
+            onTap: () async {
+              final prefs = await SharedPreferences.getInstance();
+              prefs.remove('stats');
+              prefs.remove('chart');
+              prefs.remove('row');
+              if (!context.mounted) return;
+              runQuickBox(context: context, message: 'Statistics Reset');
             },
           ),
         ],

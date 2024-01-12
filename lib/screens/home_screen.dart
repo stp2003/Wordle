@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wordle/components/stats_box.dart';
 import 'package:wordle/controllers/controller.dart';
 import 'package:wordle/screens/settings.dart';
 
@@ -40,6 +41,15 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         elevation: 5.0,
         actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => const StatsBox(),
+              );
+            },
+            icon: const Icon(Icons.bar_chart),
+          ),
           IconButton(
             onPressed: () {
               Navigator.of(context).push(
