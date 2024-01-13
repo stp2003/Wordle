@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../constants/answer_stages.dart';
 import '../data/key_maps.dart';
 import '../functions/calculate_stats.dart';
+import '../functions/claculate_charts_stats.dart';
 import '../models/tile_model.dart';
 
 class Controller extends ChangeNotifier {
@@ -118,9 +119,9 @@ class Controller extends ChangeNotifier {
 
     if (gameCompleted) {
       calculateStats(gameWon: gameWon);
-      // if (gameWon) {
-      //   setChartStats(currentRow: currentRow);
-      // }
+      if (gameWon) {
+        setChartStats(currentRow: currentRow);
+      }
     }
 
     notifyListeners();

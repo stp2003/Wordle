@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordle/components/stats_chart.dart';
 import 'package:wordle/components/stats_tile.dart';
 
 import '../constants/answer_stages.dart';
@@ -73,10 +74,10 @@ class StatsBox extends StatelessWidget {
               },
             ),
           ),
-          // const Expanded(
-          //   flex: 8,
-          //   child: StatsChart(),
-          // ),
+          const Expanded(
+            flex: 8,
+            child: StatsChart(),
+          ),
           Expanded(
             flex: 2,
             child: ElevatedButton(
