@@ -9,6 +9,7 @@ import 'package:wordle/screens/settings.dart';
 import '../components/grid.dart';
 import '../components/keyboard_row.dart';
 import '../constants/words.dart';
+import '../functions/run_quick_box.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -41,14 +42,40 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         elevation: 5.0,
         actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) => const StatsBox(),
+          Consumer<Controller>(
+            builder: (_, notifier, __) {
+              if (notifier.gameCompleted) {
+                if (notifier.gameWon) {
+                  if (notifier.currentRow == 6) {
+                    runQuickBox(context: context, message: 'Phew!');
+                  } else {
+                    runQuickBox(context: context, message: 'Splendid!');
+                  }
+                } else {
+                  runQuickBox(context: context, message: notifier.correctWord);
+                }
+                Future.delayed(
+                  const Duration(milliseconds: 4000),
+                  () {
+                    if (mounted) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => const StatsBox(),
+                      );
+                    }
+                  },
+                );
+              }
+              return IconButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => const StatsBox(),
+                  );
+                },
+                icon: const Icon(Icons.bar_chart),
               );
             },
-            icon: const Icon(Icons.bar_chart),
           ),
           IconButton(
             onPressed: () {
