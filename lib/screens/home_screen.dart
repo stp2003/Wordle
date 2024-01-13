@@ -44,6 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           Consumer<Controller>(
             builder: (_, notifier, __) {
+              if (notifier.notEnoughLetters) {
+                runQuickBox(context: context, message: 'Not Enough Letters');
+              }
               if (notifier.gameCompleted) {
                 if (notifier.gameWon) {
                   if (notifier.currentRow == 6) {

@@ -11,7 +11,8 @@ class Controller extends ChangeNotifier {
   bool checkLine = false,
       isBackOrEnter = false,
       gameWon = false,
-      gameCompleted = false;
+      gameCompleted = false,
+      notEnoughLetters = false;
   int currentTile = 0, currentRow = 0;
   List<TileModel> tilesEntered = [];
 
@@ -21,14 +22,18 @@ class Controller extends ChangeNotifier {
       if (currentTile == 5 * (currentRow + 1)) {
         isBackOrEnter = true;
         checkWord();
+      } else {
+        notEnoughLetters = true;
       }
     } else if (value == 'BACK') {
+      notEnoughLetters = false;
       if (currentTile > 5 * (currentRow + 1) - 5) {
         currentTile--;
         tilesEntered.removeLast();
         isBackOrEnter = true;
       }
     } else {
+      notEnoughLetters = false;
       if (currentTile < 5 * (currentRow + 1)) {
         tilesEntered.add(
           TileModel(
